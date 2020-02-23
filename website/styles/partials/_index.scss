@@ -1,0 +1,31 @@
+header{
+    text-align: center;
+
+    img{
+        width: 15%;
+    }
+}
+
+main{
+    .container-fluid{
+
+        .row{
+            text-align: center;
+
+            .col-lg-2{
+                height: 400px;
+                padding: 20px;
+
+                .character{
+                    background-color: #FFFFFF;
+                    border-radius: 5px;
+                    box-shadow: 4px 4px 6px grey;
+                    height: 100%;
+                    width: 100%;
+
+                }
+            }
+        }
+
+    }
+}

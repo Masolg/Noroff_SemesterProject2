@@ -1,0 +1,15 @@
+@import "partials/index.scss";
+@import "partials/game.scss";
+@import "partials/finale.scss";
+
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+
+
+
+$backgroundColor: #BEAFA3;
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: $backgroundColor;
+}
