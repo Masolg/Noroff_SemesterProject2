@@ -22,10 +22,32 @@ main{
                     box-shadow: 4px 4px 6px grey;
                     height: 100%;
                     width: 100%;
+                    padding: 10px;
+                    cursor: pointer;
 
+                    img{
+                        width: 100%;
+                        border-radius: 50% 50%;
+                        border: 6px solid blue;
+                        padding: 5px;
+                    }
+
+                    h2{
+                        margin-top: 0;
+                    }
                 }
             }
         }
 
+    }
+    .button{
+        text-align: center;
+
+        button{
+            background-color: #63A1FA;
+            width: 15%;
+            border: none;
+            font-size: 20px;
+        }
     }
 }

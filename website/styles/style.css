@@ -19,6 +19,26 @@ main .container-fluid .row .col-lg-2 .character {
   box-shadow: 4px 4px 6px grey;
   height: 100%;
   width: 100%;
+  padding: 10px;
+  cursor: pointer;
+}
+main .container-fluid .row .col-lg-2 .character img {
+  width: 100%;
+  border-radius: 50% 50%;
+  border: 6px solid blue;
+  padding: 5px;
+}
+main .container-fluid .row .col-lg-2 .character h2 {
+  margin-top: 0;
+}
+main .button {
+  text-align: center;
+}
+main .button button {
+  background-color: #63A1FA;
+  width: 15%;
+  border: none;
+  font-size: 20px;
 }
 
 body {
