@@ -82,13 +82,7 @@ function addCharacterToCard(character, i){
 
     characterDivs[i].appendChild(front);
     characterDivs[i].appendChild(back);
-    // characterDivs[i].appendChild(picture);
-    // characterDivs[i].appendChild(name);
-    // characterDivs[i].appendChild(culture);
-    // characterDivs[i].appendChild(born);
-    // characterDivs[i].appendChild(titles);
-    // characterDivs[i].appendChild(aliases);
-    // characterDivs[i].appendChild(allegiances);
+
 }
 
 // CARD CLICK
