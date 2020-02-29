@@ -1,20 +1,32 @@
 header{
     text-align: center;
 
+    height: 15vh;
     img{
-        width: 15%;
+        height: 100%;
     }
 }
 
 main{
-    .container-fluid{
+    height: 85vh;
 
+    h2.characterHeader{
+        height: 7%;
+        text-align: center;
+        color: black;
+        margin: 0;
+        padding: 0;
+        font-size: 4.2vh;
+    }
+    .container-fluid{
+        height: 85%;
         .row{
+            height: 50%;
             text-align: center;
 
-            .col-lg-2{
-                height: 400px;
-                padding: 20px;
+            .col-md-2{
+                height: 100%;
+                padding: 0 20px 20px 20px;
 
                 .character{
                     background-color: #FFFFFF;
@@ -24,16 +36,23 @@ main{
                     width: 100%;
                     padding: 10px;
                     cursor: pointer;
-
+                    font-size: 0.8vw;
+                    
                     img{
-                        width: 100%;
+                        width: 80%;
                         border-radius: 50% 50%;
-                        border: 6px solid blue;
-                        padding: 5px;
+                        // border: 6px solid lightblue;
+                        // padding: 5px;
                     }
-
+                    
                     h2{
                         margin-top: 0;
+                        font-size: 1.4vw;
+                    }
+                    .back{
+                        p{
+                            font-size: 1.0vw;
+                        }
                     }
                 }
             }
@@ -41,13 +60,123 @@ main{
 
     }
     .button{
+        height: 8%;
         text-align: center;
 
         button{
             background-color: #63A1FA;
             width: 15%;
+            height: 80%;
             border: none;
             font-size: 20px;
         }
+        button:hover{
+            cursor: pointer;
+            background-color: #5591e4;
+        }
+        button:disabled{
+            cursor: default;
+            background-color: #5591e4;
+        }
     }
+}
+
+
+
+
+
+
+
+
+@media (max-width: 991px) {
+
+    main{
+        height: auto;
+    
+        .container-fluid{
+            height: auto;
+            .row{
+                height: auto;
+    
+                .col-md-2{
+                    height: auto;
+    
+                    .character{
+                        width: 60%;
+                        margin: auto;
+                        height: 400px;
+                        font-size: 2.9vw;
+    
+                        img{
+                            width: 35%;
+                        }
+    
+                        h2{
+                            font-size: 5vw;
+                        }
+                        .back{
+                            p{
+                                font-size: 2.9vw;
+                            }
+                        }
+    
+                    }
+                }
+            }
+    
+        }
+        .button{
+            height: 100px;
+    
+            button{
+                width: 59%;
+                height: 80%;
+            }
+        }
+    } 
+}
+
+
+
+
+@media (max-width: 500px) {
+   
+    main{
+        .container-fluid{
+            .row{
+    
+                .col-md-2{
+                    height: auto;
+    
+                    .character{
+                        width: 100%;
+                        margin: auto;
+                        height: 400px;
+                        font-size: 4vw;
+    
+                        img{
+                            width: 50%;
+                        }
+    
+                        h2{
+                            font-size: 7vw;
+                        }
+                        .back{
+                            p{
+                                font-size: 4vw;
+                            }
+                        }
+    
+                    }
+                }
+            }
+    
+        }
+        .button{
+            button{
+                width: 59%;
+                height: 80%;
+            }
+        }
+    } 
 }

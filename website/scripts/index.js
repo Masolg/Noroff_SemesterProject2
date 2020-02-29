@@ -22,6 +22,20 @@ var characterDivs = document.getElementsByClassName("character");
 var characters = [];
 
 
+var images = {
+    "Jon Snow" : "wolf_dark.png",
+    "Daenerys Targaryen": "dragon.png",
+    "Arya Stark": "wolf_light.png",
+    "Brienne of Tarth": "deer.png",
+    "Jaime Lannister": "lion_light.png",
+    "Theon Greyjoy": "octo.png",
+    "Tyrion Lannister": "lion_orange.png",
+    "Sandor Clegane": "lion_brown.png",
+    "Drogo": "drogo.png",
+    "Tormund": "mammoth.png"
+}
+
+
 // FETCH AND DISPLAY CARDS
 for (var i = 0; i<10; i++){
     var char_i = allCharacters.findIndex(element => element.Id==characterIDs[i]);
@@ -37,7 +51,7 @@ function addCharacterToCard(character, i){
     front.style.display = "block";
 
     var picture = document.createElement("img");
-    picture.src = 'https://via.placeholder.com/300';
+    picture.src = '../images/'+images[character.Name];
     picture.alt = "Character Logo";
     front.appendChild(picture);
     // characterDivs[i].innerHTML = "<img src='https://via.placeholder.com/300'></img>"
@@ -89,11 +103,24 @@ function addCharacterToCard(character, i){
 var players = [];
 var playerNames = [];
 function characterPress(elem){
-    if (players.length <= 1){
+
+    if (players.length === 0){
         elem.style.border = "2px solid blue";
         players.push(elem);
         playerNames.push(elem.childNodes[0].childNodes[1].innerHTML);
-        if (players.length === 2){
+        console.log(players);
+        console.log(playerNames);
+    }
+    else if (players.length  === 1){
+        if (players.includes(elem)){
+            elem.style.border = "none";
+            players = [];
+            playerNames = [];
+        }
+        else{
+            elem.style.border = "2px solid blue";
+            players.push(elem);
+            playerNames.push(elem.childNodes[0].childNodes[1].innerHTML);
             document.getElementById("btn").disabled = false;
             for (var i = 0; i<10; i++){
                 var player1Num = parseInt(players[0].getAttribute("number"))-1;
@@ -104,7 +131,35 @@ function characterPress(elem){
                 }
             }
         }
+        console.log(players);
+        console.log(playerNames);
     }
+    else if (players.length === 2){
+        if (players.includes(elem)){
+            elem.style.border = "none";
+            document.getElementById("btn").disabled = true;
+            for (var i = 0; i<10; i++){
+                characterDivs[i].style.opacity = "100%";
+                characterDivs[i].style.cursor = "pointer";
+            }
+            var player1Num = parseInt(players[0].getAttribute("number"));
+            var player2Num = parseInt(players[1].getAttribute("number"));
+            var thisPlayerNum = parseInt(elem.getAttribute("number"));
+            if( player1Num === thisPlayerNum ){
+                players.splice(0, 1);
+                playerNames.splice(0, 1);
+            }
+            else if( player2Num === thisPlayerNum ){
+                players.splice(1, 2);
+                playerNames.splice(1, 2);
+            }
+        }
+        else{
+            
+        }
+    }
+
+    
 }
 
 
