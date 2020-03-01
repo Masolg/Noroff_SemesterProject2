@@ -204,29 +204,29 @@ main.gameMain .diceArea .diceBtn button:disabled {
   background-color: #5591e4;
 }
 
-header {
+header.finaleHeader {
   text-align: right;
 }
-header img {
+header.finaleHeader img {
   width: 10%;
   margin: 20px 20px 0 0;
 }
 
-main {
+main.finaleMain {
   text-align: center;
 }
-main h2 {
+main.finaleMain h2 {
   font-size: 50px;
   margin: 0;
 }
-main .token {
+main.finaleMain .token {
   transition: 1000s linear;
 }
-main .token img {
+main.finaleMain .token img {
   margin: 20px;
   height: 15%;
 }
-main h3 {
+main.finaleMain h3 {
   font-size: 40px;
 }
 
