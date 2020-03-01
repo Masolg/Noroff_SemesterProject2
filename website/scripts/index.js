@@ -1,4 +1,4 @@
-// fetch('../assets/characters.json', {mode:'no-cors'})
+// fetch("../assets/characters.json", {mode:"no-cors"})
 //     .then((response) => response.json() )
 //     .then((characterJson) => console.log(characterJson))
 //     .catch((error) => console.error(error));
@@ -47,14 +47,14 @@ for (var i = 0; i<10; i++){
 function addCharacterToCard(character, i){
 
     var front = document.createElement("div");
-    front.setAttribute('class', 'front');
+    front.setAttribute("class", "front");
     front.style.display = "block";
 
     var picture = document.createElement("img");
-    picture.src = '../images/'+images[character.Name]+".png";
+    picture.src = "../images/"+images[character.Name]+".png";
     picture.alt = "Character Logo";
     front.appendChild(picture);
-    // characterDivs[i].innerHTML = "<img src='https://via.placeholder.com/300'></img>"
+    // characterDivs[i].innerHTML = "<img src="https://via.placeholder.com/300"></img>"
 
     var name = document.createElement("h2");
     name.innerHTML = character.Name;
@@ -69,21 +69,21 @@ function addCharacterToCard(character, i){
     front.appendChild(born);
 
     var back = document.createElement("div");
-    back.setAttribute('class', 'back');
+    back.setAttribute("class", "back");
     back.style.display = "none";
 
     var titles = document.createElement("p");
-    titles.setAttribute('class', 'titles');
+    titles.setAttribute("class", "titles");
     titles.innerHTML = character.Titles.slice(0,3);
     back.appendChild(titles);
 
     var aliases = document.createElement("p");
-    aliases.setAttribute('class', 'aliases');
+    aliases.setAttribute("class", "aliases");
     aliases.innerHTML = character.Aliases.slice(0,3);
     back.appendChild(aliases);
 
     var allegiances = document.createElement("p");
-    allegiances.setAttribute('class', 'allegiances');
+    allegiances.setAttribute("class", "allegiances");
     allegiances.innerHTML = "Allegiances: ";
     var allegianceIDs = character.Allegiances;
     for (var j = 0; j < allegianceIDs.length; j++){
@@ -258,8 +258,8 @@ function play(){
         
         // https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
         myStorage = window.localStorage;
-        localStorage.setItem('p1', p1);
-        localStorage.setItem('p2', p2);
+        localStorage.setItem("p1", p1);
+        localStorage.setItem("p2", p2);
         
         window.location.href="./game.html?p1="+p1+"&p2="+p2;
     }

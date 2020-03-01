@@ -5,12 +5,21 @@
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
 
 
+@font-face{
+    font-family: Roboto;
+    src: url("../fonts/Roboto/Roboto-Regular.ttf");
+}
 
 $backgroundColor: #BEAFA3;
+// $backgroundColor: rgb(243, 229, 217);
 
 body{
     margin: 0;
     padding: 0;
     background-color: $backgroundColor;
     height: 100vh;
+
+    
+    font-family: Arial;
+    font-family: Roboto, Arial, sans-serif;
 }

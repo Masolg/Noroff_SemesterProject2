@@ -69,6 +69,18 @@ coordinates = [
     [9, 5]
 ];
 
+traps_pos = [4, 9, 14, 20, 24, 29];
+
+traps_text = {
+    4:"Turn around before Joffrey puts your head on a spike.",
+    9:"Cersei Lannister is standing in your way. Turn back, you don't want to meet her.",
+    14:"Daenerys' Dragons Ahead! Turn back three steps.",
+    20:"The Martell's intend to poison you. Turn back!",
+    24:"The Mountain is in a bad mood. Turn around before he smashes your skull.",
+    29:"It's suddenly freezing outside. Turn back to avoid the White Walkers."
+
+}
+
 var lineLen = 130;
 function toCanvasCoordinates(x0, y0){
     var startX = 2;
@@ -93,6 +105,8 @@ function createRect(x0, y0, text){
 }
 
 function drawBoard(){
+
+    
     createRect(1, 0, "Start");
     for (var i = 1; i<coordinates.length; i++){
         [x_coord, y_coord] = coordinates[i];
@@ -101,23 +115,48 @@ function drawBoard(){
     createRect(9, 5, "Finish");
     
     setTimeout(()=>{    // Because of load times
-        const tree = document.getElementById('tree');
+        const tree = document.getElementById("tree");
         ctx.drawImage(tree, 500, 150, 750, 600);
         
-        const orange_leaves = document.getElementById('orange_leaves');
-        const red_leaves = document.getElementById('red_leaves');
-        const yellow_leaves = document.getElementById('yellow_leaves');
-        ctx.drawImage(orange_leaves, 900, 680, 60, 80);
-        ctx.drawImage(red_leaves, 900, 680, 150, 100);
-        ctx.drawImage(yellow_leaves, 850, 720, 80, 60);
+        const orange_leaves = document.getElementById("orange_leaves");
+        const red_leaves = document.getElementById("red_leaves");
+        const yellow_leaves = document.getElementById("yellow_leaves");
+        ctx.drawImage(orange_leaves, 900, 680, 60, 60);
+        ctx.drawImage(red_leaves, 900, 680, 150, 80);
+        ctx.drawImage(yellow_leaves, 850, 720, 80, 50);
         
-        ctx.drawImage(yellow_leaves, 750, 730, 80, 60);
-        ctx.drawImage(red_leaves, 750, 680, 150, 100);
-        ctx.drawImage(orange_leaves, 750, 680, 60, 80);
-    },100)
+        ctx.drawImage(yellow_leaves, 750, 730, 80, 40);
+        ctx.drawImage(red_leaves, 750, 680, 150, 80);
+        ctx.drawImage(orange_leaves, 750, 680, 60, 60);
+    },150)
 
     drawTokens()
 
+    drawTraps();
+
+}
+
+function drawTraps(){
+    for (var i = 0; i<traps_pos.length; i++){
+        
+        // console.log(traps_pos[i]);
+        
+        [x0, y0] = coordinates[ traps_pos[i] ];
+        [x, y] = toCanvasCoordinates(x0, y0);
+
+        ctx.beginPath();
+        ctx.rect(x, y, lineLen, lineLen);
+        ctx.lineWidth = 1;
+        ctx.fillStyle = "#eb732a";
+        ctx.strokeStyle = "black";
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = "black";
+        ctx.font = "20px Arial";
+        ctx.textAlign = "center"; 
+        ctx.fillText(traps_pos[i], x+0.5*lineLen, y+0.55*lineLen); 
+    }
 }
 
 function drawTokens(){
@@ -165,13 +204,13 @@ function drawTokens(){
 
 // Found at https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
 const urlParams = new URLSearchParams(window.location.search);
-const p1 = urlParams.get('p1');
-const p2 = urlParams.get('p2');
+const p1 = urlParams.get("p1");
+const p2 = urlParams.get("p2");
 // console.log(p1);
 // console.log(p2);
 
-var p1_local = localStorage.getItem('p1');
-var p2_local = localStorage.getItem('p2');
+var p1_local = localStorage.getItem("p1");
+var p2_local = localStorage.getItem("p2");
 // console.log(p1_local);
 // console.log(p2_local);
 localStorage.clear();
@@ -182,21 +221,20 @@ var p2_pos = 0;
 
 var playersTurn = 1;
 
-var body = document.body;
 
 var p1_img = document.createElement("img");
-p1_img.src = '../images/'+images[p1]+".png";
+p1_img.src = "../images/"+images[p1]+".png";
 p1_img.alt = "Player 1 image";
 p1_img.style.display = "none";
 p1_img.id = p1;
-body.appendChild(p1_img);
+document.body.appendChild(p1_img);
 
 var p2_img = document.createElement("img");
-p2_img.src = '../images/'+images[p2]+".png";
+p2_img.src = "../images/"+images[p2]+".png";
 p2_img.alt = "Player 2 image";
 p2_img.style.display = "none";
 p2_img.id = p2;
-body.appendChild(p2_img);
+document.body.appendChild(p2_img);
 
 
 drawBoard();
@@ -204,7 +242,9 @@ drawBoard();
 var diceImg = document.querySelector("#dice");
 
 var diceText = document.querySelector(".diceText");
-diceText.innerHTML = p1+" <br /> Your turn"
+diceText.innerHTML = p1+"'s turn"
+
+var trapText = document.querySelector(".trapText");
 
 
 var rollBtn = document.querySelector("#roll");
@@ -218,19 +258,43 @@ function roll(){
     if(playersTurn === 1){
         p1_pos += diceRoll;
         
-        console.log("p1_pos: "+p1_pos);
+        // console.log("p1_pos: "+p1_pos);
+
         if (p1_pos>=31){
             diceText.innerHTML = p1+" <br /> You won!"
             p1_pos = 31;
             setTimeout(() => {window.location.href="./finale.html?winner="+p1;}, 2000);
         }
+        else if(traps_pos.includes(p1_pos)){
+            trapText.innerText = traps_text[p1_pos];
+            rollBtn.disabled = true;
+            if (diceRoll===6){
+                setTimeout(() => {
+                    rollBtn.disabled = false;
+                    playersTurn = 1;
+                    p1_pos -= 3;
+                    trapText.innerText = "";
+                    drawBoard();
+                }, 4500);
+            }
+            else{
+                setTimeout(() => {
+                    rollBtn.disabled = false;
+                    playersTurn = 2;
+                    diceText.innerHTML = p2+"'s turn"
+                    p1_pos -= 3;
+                    trapText.innerText = "";
+                    drawBoard();
+                }, 4500);
+            }
+        }
         else{
-
+            
             if(diceRoll===6){
                 playersTurn = 1;
             }
             else{
-                diceText.innerHTML = p2+" <br /> Your turn"
+                diceText.innerHTML = p2+"'s turn"
                 playersTurn = 2;
             }
         }
@@ -238,12 +302,35 @@ function roll(){
     else{
         p2_pos += diceRoll;
 
-        console.log("p2_pos: "+p2_pos);
+        // console.log("p2_pos: "+p2_pos);
 
         if(p2_pos>=31){
             diceText.innerHTML = p2+" <br /> You won!"
             p2_pos = 31;
             setTimeout(() => {window.location.href="./finale.html?winner="+p2;}, 2000);
+        }
+        else if(traps_pos.includes(p2_pos)){
+            trapText.innerText = traps_text[p2_pos];
+            rollBtn.disabled = true;
+            if (diceRoll===6){
+                setTimeout(() => {
+                    rollBtn.disabled = false;
+                    p2_pos -= 3;
+                    playersTurn = 2;
+                    trapText.innerText = "";
+                    drawBoard();
+                }, 4500);
+            }
+            else{
+                setTimeout(() => {
+                    rollBtn.disabled = false;
+                    p2_pos -= 3;
+                    playersTurn = 1;
+                    trapText.innerText = "";
+                    diceText.innerHTML = p1+"'s turn"
+                    drawBoard();
+                }, 4500);
+            }
         }
         else{
 
@@ -252,7 +339,7 @@ function roll(){
             }
             else{
                 playersTurn = 1;
-                diceText.innerHTML = p1+" <br /> Your turn"
+                diceText.innerHTML = p1+"'s turn"
             }
         }
     }

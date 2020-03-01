@@ -1,6 +1,6 @@
 
 var urlParams = new URLSearchParams(window.location.search);
-var winner = urlParams.get('winner');
+var winner = urlParams.get("winner");
 
 var images = {
     "Jon Snow" : "wolf_dark",
@@ -20,11 +20,6 @@ var token = document.querySelector(".token");
 token.childNodes[1].src = "../images/"+images[winner]+".png";
 token.childNodes[1].alt = images[winner];
 
-var degrees = 0;
-degrees += 180000;
-token.style.webkitTransform = "rotateY(" + degrees + "deg)";
-token.style.MozTransform = "rotateY(" + degrees + "deg)";
-token.style.msTransform = "rotateY(" + degrees + "deg)";
-token.style.OTransform = "rotateY(" + degrees + "deg)";
-token.style.transform = "rotateY(" + degrees + "deg)";
+var deg = 200000;
+token.style.transform = "rotateY(" + deg + "deg)";
 

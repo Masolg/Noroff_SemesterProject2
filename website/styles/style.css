@@ -180,7 +180,7 @@ main.gameMain .diceArea .dice img {
   width: 40%;
 }
 main.gameMain .diceArea .diceText {
-  margin-top: 10px;
+  margin-top: 45px;
   font-size: 30px;
 }
 main.gameMain .diceArea .diceBtn {
@@ -203,13 +203,20 @@ main.gameMain .diceArea .diceBtn button:disabled {
   cursor: default;
   background-color: #5591e4;
 }
+main.gameMain .diceArea .trapText {
+  padding: 20px;
+  padding-top: 80px;
+  font-size: 1.5vw;
+}
 
 header.finaleHeader {
   text-align: right;
+  height: 15vh;
+  padding-top: 20px;
 }
-header.finaleHeader img {
-  width: 10%;
-  margin: 20px 20px 0 0;
+header.finaleHeader a img {
+  margin-right: 5.5vw;
+  height: 100%;
 }
 
 main.finaleMain {
@@ -230,11 +237,17 @@ main.finaleMain h3 {
   font-size: 40px;
 }
 
+@font-face {
+  font-family: Roboto;
+  src: url("../fonts/Roboto/Roboto-Regular.ttf");
+}
 body {
   margin: 0;
   padding: 0;
   background-color: #BEAFA3;
   height: 100vh;
+  font-family: Arial;
+  font-family: Roboto, Arial, sans-serif;
 }
 
 /*# sourceMappingURL=style.css.map */
