@@ -22,6 +22,5 @@ var token = document.querySelector(".token");
 token.childNodes[1].src = "../images/"+images[winner]+".png";
 token.childNodes[1].alt = images[winner];
 
-var deg = 200000;
 token.style.transform = "rotateY(200000deg)";
 

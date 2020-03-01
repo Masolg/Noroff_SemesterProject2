@@ -112,7 +112,7 @@ function drawBoard(){
         ctx.drawImage(yellow_leaves, 750, 730, 80, 40);
         ctx.drawImage(red_leaves, 750, 680, 150, 80);
         ctx.drawImage(orange_leaves, 750, 680, 60, 60);
-    },150)
+    },200)
 
     drawTokens()
     drawTraps();

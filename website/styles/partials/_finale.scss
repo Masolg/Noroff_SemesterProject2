@@ -13,20 +13,21 @@ header.finaleHeader{
 main.finaleMain{
     text-align: center;
 
+
     h2{
         font-size: 50px;
         margin: 0;
     }
-
+    
     .token{
-      transition: 1000s linear;
-
-      img{
-          margin: 20px;
-          height: 15%;
-      }
+        transition: 1000s linear;
+        
+        img{
+            margin: 20px;
+            height: 15%;
+        }
     }
-
+    
     h3{
         font-size: 40px;
     }
