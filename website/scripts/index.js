@@ -18,8 +18,22 @@ var characterNames = ["Jon Snow",
                     "Tormund"]
 
 
-var characterDivs = document.getElementsByClassName("character");
 var characters = [];
+                    
+var images = {
+    "Jon Snow" : "wolf_dark",
+    "Daenerys Targaryen": "dragon",
+    "Arya Stark": "wolf_light",
+    "Brienne of Tarth": "deer",
+    "Jaime Lannister": "lion_light",
+    "Theon Greyjoy": "octo",
+    "Tyrion Lannister": "lion_orange",
+    "Sandor Clegane": "lion_brown",
+    "Drogo": "drogo",
+    "Tormund": "mammoth"
+}
+
+var characterDivs = document.getElementsByClassName("character");
 
 
 // FETCH AND DISPLAY CARDS
@@ -37,7 +51,7 @@ function addCharacterToCard(character, i){
     front.style.display = "block";
 
     var picture = document.createElement("img");
-    picture.src = 'https://via.placeholder.com/300';
+    picture.src = '../images/'+images[character.Name]+".png";
     picture.alt = "Character Logo";
     front.appendChild(picture);
     // characterDivs[i].innerHTML = "<img src='https://via.placeholder.com/300'></img>"
@@ -82,24 +96,31 @@ function addCharacterToCard(character, i){
 
     characterDivs[i].appendChild(front);
     characterDivs[i].appendChild(back);
-    // characterDivs[i].appendChild(picture);
-    // characterDivs[i].appendChild(name);
-    // characterDivs[i].appendChild(culture);
-    // characterDivs[i].appendChild(born);
-    // characterDivs[i].appendChild(titles);
-    // characterDivs[i].appendChild(aliases);
-    // characterDivs[i].appendChild(allegiances);
+
 }
 
 // CARD CLICK
 var players = [];
 var playerNames = [];
 function characterPress(elem){
-    if (players.length <= 1){
+
+    if (players.length === 0){
         elem.style.border = "2px solid blue";
         players.push(elem);
         playerNames.push(elem.childNodes[0].childNodes[1].innerHTML);
-        if (players.length === 2){
+        console.log(players);
+        console.log(playerNames);
+    }
+    else if (players.length  === 1){
+        if (players.includes(elem)){
+            elem.style.border = "none";
+            players = [];
+            playerNames = [];
+        }
+        else{
+            elem.style.border = "2px solid blue";
+            players.push(elem);
+            playerNames.push(elem.childNodes[0].childNodes[1].innerHTML);
             document.getElementById("btn").disabled = false;
             for (var i = 0; i<10; i++){
                 var player1Num = parseInt(players[0].getAttribute("number"))-1;
@@ -110,7 +131,35 @@ function characterPress(elem){
                 }
             }
         }
+        console.log(players);
+        console.log(playerNames);
     }
+    else if (players.length === 2){
+        if (players.includes(elem)){
+            elem.style.border = "none";
+            document.getElementById("btn").disabled = true;
+            for (var i = 0; i<10; i++){
+                characterDivs[i].style.opacity = "100%";
+                characterDivs[i].style.cursor = "pointer";
+            }
+            var player1Num = parseInt(players[0].getAttribute("number"));
+            var player2Num = parseInt(players[1].getAttribute("number"));
+            var thisPlayerNum = parseInt(elem.getAttribute("number"));
+            if( player1Num === thisPlayerNum ){
+                players.splice(0, 1);
+                playerNames.splice(0, 1);
+            }
+            else if( player2Num === thisPlayerNum ){
+                players.splice(1, 2);
+                playerNames.splice(1, 2);
+            }
+        }
+        else{
+
+        }
+    }
+
+    
 }
 
 
@@ -206,7 +255,15 @@ function play(){
     if ( playerNames.length === 2){
         var p1 = playerNames[0];
         var p2 = playerNames[1];
+        
+        // https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+        myStorage = window.localStorage;
+        localStorage.setItem('p1', p1);
+        localStorage.setItem('p2', p2);
+        
         window.location.href="./game.html?p1="+p1+"&p2="+p2;
     }
 
+
+    
 }

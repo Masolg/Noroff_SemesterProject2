@@ -1,0 +1,83 @@
+header.gameHeader{
+
+    height: 15vh;
+
+
+    display: flex;
+    .infoText{
+        text-align: center;
+        flex: 8;
+        h2{
+            padding: 0;
+            margin: 0;
+            font-size: 50px;
+            height: 15vh;
+            line-height: 15vh;
+            padding-left: 300px;
+        }
+    }
+
+    .logo{
+        flex: 2;
+        text-align: center;
+        padding-top: 20px;
+        
+        height: 15vh;
+        img{
+            height: 100%;
+        }
+    }
+}
+
+
+main.gameMain{
+    text-align: left;
+    height: 85vh;
+    display: flex;
+    padding-left: 20px;
+
+    canvas{
+        flex: 8;
+        width: 80vw;
+        margin: auto;
+        margin-top: 0;
+        // border: 2px solid black;
+    }
+    .diceArea{
+        padding-top: 100px;
+        text-align: center;
+        flex: 2;
+        .dice{
+            width: 100%;
+            img{
+                width: 40%;
+            }
+        }
+        .diceText{
+            margin-top: 10px;
+            font-size: 30px;
+        }
+        .diceBtn{
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+
+            button{
+                background-color: #63A1FA;
+                width: 50%;
+                height: 50px;
+                border: none;
+                font-size: 20px;
+            }
+            button:hover{
+                cursor: pointer;
+                background-color: #5591e4;
+            }
+            button:disabled{
+                cursor: default;
+                background-color: #5591e4;
+            }
+        }
+    }
+
+}

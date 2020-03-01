@@ -1,19 +1,35 @@
 @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
-header {
+header.indexHeader {
   text-align: center;
+  height: 15vh;
 }
-header img {
-  width: 15%;
+header.indexHeader img {
+  height: 100%;
 }
 
-main .container-fluid .row {
+main.indexMain {
+  height: 85vh;
+}
+main.indexMain h2.characterHeader {
+  height: 7%;
+  text-align: center;
+  color: black;
+  margin: 0;
+  padding: 0;
+  font-size: 4.2vh;
+}
+main.indexMain .container-fluid {
+  height: 85%;
+}
+main.indexMain .container-fluid .row {
+  height: 50%;
   text-align: center;
 }
-main .container-fluid .row .col-lg-2 {
-  height: 400px;
-  padding: 20px;
+main.indexMain .container-fluid .row .col-md-2 {
+  height: 100%;
+  padding: 0 20px 20px 20px;
 }
-main .container-fluid .row .col-lg-2 .character {
+main.indexMain .container-fluid .row .col-md-2 .character {
   background-color: #FFFFFF;
   border-radius: 5px;
   box-shadow: 4px 4px 6px grey;
@@ -21,24 +37,171 @@ main .container-fluid .row .col-lg-2 .character {
   width: 100%;
   padding: 10px;
   cursor: pointer;
+  font-size: 0.8vw;
 }
-main .container-fluid .row .col-lg-2 .character img {
-  width: 100%;
+main.indexMain .container-fluid .row .col-md-2 .character img {
+  width: 80%;
   border-radius: 50% 50%;
-  border: 6px solid blue;
-  padding: 5px;
 }
-main .container-fluid .row .col-lg-2 .character h2 {
+main.indexMain .container-fluid .row .col-md-2 .character h2 {
   margin-top: 0;
+  font-size: 1.4vw;
 }
-main .button {
+main.indexMain .container-fluid .row .col-md-2 .character .back p {
+  font-size: 1vw;
+}
+main.indexMain .button {
+  height: 8%;
   text-align: center;
 }
-main .button button {
+main.indexMain .button button {
   background-color: #63A1FA;
   width: 15%;
+  height: 80%;
   border: none;
   font-size: 20px;
+}
+main.indexMain .button button:hover {
+  cursor: pointer;
+  background-color: #5591e4;
+}
+main.indexMain .button button:disabled {
+  cursor: default;
+  background-color: #5591e4;
+}
+
+@media (max-width: 991px) {
+  main.indexMain {
+    height: auto;
+  }
+  main.indexMain .container-fluid {
+    height: auto;
+  }
+  main.indexMain .container-fluid .row {
+    height: auto;
+  }
+  main.indexMain .container-fluid .row .col-md-2 {
+    height: auto;
+  }
+  main.indexMain .container-fluid .row .col-md-2 .character {
+    width: 60%;
+    margin: auto;
+    height: 400px;
+    font-size: 2.9vw;
+  }
+  main.indexMain .container-fluid .row .col-md-2 .character img {
+    width: 35%;
+  }
+  main.indexMain .container-fluid .row .col-md-2 .character h2 {
+    font-size: 5vw;
+  }
+  main.indexMain .container-fluid .row .col-md-2 .character .back p {
+    font-size: 2.9vw;
+  }
+  main.indexMain .button {
+    height: 100px;
+  }
+  main.indexMain .button button {
+    width: 59%;
+    height: 80%;
+  }
+}
+@media (max-width: 500px) {
+  main.indexMain .container-fluid .row .col-md-2 {
+    height: auto;
+  }
+  main.indexMain .container-fluid .row .col-md-2 .character {
+    width: 100%;
+    margin: auto;
+    height: 400px;
+    font-size: 4vw;
+  }
+  main.indexMain .container-fluid .row .col-md-2 .character img {
+    width: 50%;
+  }
+  main.indexMain .container-fluid .row .col-md-2 .character h2 {
+    font-size: 7vw;
+  }
+  main.indexMain .container-fluid .row .col-md-2 .character .back p {
+    font-size: 4vw;
+  }
+  main.indexMain .button button {
+    width: 59%;
+    height: 80%;
+  }
+}
+header.gameHeader {
+  height: 15vh;
+  display: flex;
+}
+header.gameHeader .infoText {
+  text-align: center;
+  flex: 8;
+}
+header.gameHeader .infoText h2 {
+  padding: 0;
+  margin: 0;
+  font-size: 50px;
+  height: 15vh;
+  line-height: 15vh;
+  padding-left: 300px;
+}
+header.gameHeader .logo {
+  flex: 2;
+  text-align: center;
+  padding-top: 20px;
+  height: 15vh;
+}
+header.gameHeader .logo img {
+  height: 100%;
+}
+
+main.gameMain {
+  text-align: left;
+  height: 85vh;
+  display: flex;
+  padding-left: 20px;
+}
+main.gameMain canvas {
+  flex: 8;
+  width: 80vw;
+  margin: auto;
+  margin-top: 0;
+}
+main.gameMain .diceArea {
+  padding-top: 100px;
+  text-align: center;
+  flex: 2;
+}
+main.gameMain .diceArea .dice {
+  width: 100%;
+}
+main.gameMain .diceArea .dice img {
+  width: 40%;
+}
+main.gameMain .diceArea .diceText {
+  margin-top: 10px;
+  font-size: 30px;
+}
+main.gameMain .diceArea .diceBtn {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+main.gameMain .diceArea .diceBtn button {
+  background-color: #63A1FA;
+  width: 50%;
+  height: 50px;
+  border: none;
+  font-size: 20px;
+}
+main.gameMain .diceArea .diceBtn button:hover {
+  cursor: pointer;
+  background-color: #5591e4;
+}
+main.gameMain .diceArea .diceBtn button:disabled {
+  cursor: default;
+  background-color: #5591e4;
 }
 
 header {
@@ -71,6 +234,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #BEAFA3;
+  height: 100vh;
 }
 
 /*# sourceMappingURL=style.css.map */
