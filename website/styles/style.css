@@ -41,6 +41,32 @@ main .button button {
   font-size: 20px;
 }
 
+header {
+  text-align: right;
+}
+header img {
+  width: 10%;
+  margin: 20px 20px 0 0;
+}
+
+main {
+  text-align: center;
+}
+main h2 {
+  font-size: 50px;
+  margin: 0;
+}
+main .token {
+  transition: 1000s linear;
+}
+main .token img {
+  margin: 20px;
+  height: 15%;
+}
+main h3 {
+  font-size: 40px;
+}
+
 body {
   margin: 0;
   padding: 0;
