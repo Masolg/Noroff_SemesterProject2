@@ -32,41 +32,6 @@ var images = {
 var gameCanvas = document.getElementById("gameCanvas");
 var ctx = gameCanvas.getContext("2d");
 
-// function coordinates(x0, y0){
-//     var startX = 100;
-//     var startY = 100;
-//     // var x = startX + Math.floor(y0/2)*lineLen*x0;
-//     // var y = startY + 1.03*Math.sqrt(3)*y0*lineLen;
-//     var x = startX + Math.floor(1+(y0/2))*lineLen*x0;
-//     var y = startY + 1.03*Math.sqrt(3)*y0*lineLen*Math.floor(x0/2);
-//     return [x, y];
-// }
-
-
-// var lineLen = 100;
-// function createHex(x0, y0){
-//     [x, y] = coordinates(x0, y0);
-//     ctx.moveTo(x, y);
-//     ctx.lineTo(x+lineLen, y);
-//     ctx.lineTo(x+lineLen+lineLen*0.5, y+lineLen*0.87);
-//     ctx.lineTo(x+lineLen, y+lineLen*0.87+lineLen*0.87);
-//     ctx.lineTo(x, y+lineLen*0.87+lineLen*0.87);
-//     ctx.lineTo(x-lineLen*0.5, y+lineLen*0.87);
-//     ctx.lineTo(x+1, y-2);
-//     ctx.lineWidth = 9;
-//     ctx.fillStyle = "white";
-//     ctx.stroke(); 
-//     ctx.fill();
-// }
-
-// // const image = document.getElementById('source');
-// // ctx.drawImage(image, 65, 100, 170, 170);
-
-// createHex(0, 0);
-// createHex(0, 1);
-// createHex(1, 1);
-// createHex(2, 1);
-// createHex(0, 2);
 
 
 coordinates = [
@@ -106,8 +71,8 @@ coordinates = [
 
 var lineLen = 130;
 function toCanvasCoordinates(x0, y0){
-    var startX = 0;
-    var startY = 0;
+    var startX = 2;
+    var startY = 2;
     var x = startX + lineLen*x0;
     var y = startY + lineLen*y0;
     return [x, y];
@@ -131,7 +96,7 @@ function drawBoard(){
     createRect(1, 0, "Start");
     for (var i = 1; i<coordinates.length; i++){
         [x_coord, y_coord] = coordinates[i];
-        createRect(x_coord, y_coord, i+1)
+        createRect(x_coord, y_coord, i)
     }
     createRect(9, 5, "Finish");
     
@@ -149,54 +114,48 @@ function drawBoard(){
         ctx.drawImage(yellow_leaves, 750, 730, 80, 60);
         ctx.drawImage(red_leaves, 750, 680, 150, 100);
         ctx.drawImage(orange_leaves, 750, 680, 60, 80);
-    },30)
+    },100)
 
     drawTokens()
 
 }
 
 function drawTokens(){
-
-
     [x1_, y1_] = coordinates[p1_pos];
     [x2_, y2_] = coordinates[p2_pos];
-
 
     [x1, y1] = toCanvasCoordinates(x1_, y1_);
     [x2, y2] = toCanvasCoordinates(x2_, y2_);
 
+    var x1_real, y1_real, x2_real, y2_real;
     if (p1_pos === p2_pos){
-        console.log("here");
-        setTimeout(()=>{
-            const p1_img = document.getElementById(p1);
-            ctx.drawImage(p1_img, x1+lineLen*0.03, y1+lineLen*0.03, 0.6*lineLen, 0.6*lineLen);
-            
-            const p2_img = document.getElementById(p2);
-            ctx.drawImage(p2_img, x2+lineLen*0.37, y2+lineLen*0.36, 0.6*lineLen, 0.6*lineLen);
-        },50)
+        x1_real = x1+lineLen*0.03;
+        y1_real = y1+lineLen*0.03;
+
+        x2_real = x2+lineLen*0.37;
+        y2_real = y2+lineLen*0.36;     
     }   
     else{
-        setTimeout(()=>{
-            const p1_img = document.getElementById(p1);
-            ctx.drawImage(p1_img, x1+0.2*lineLen, y1+0.2*lineLen, 0.6*lineLen, 0.6*lineLen);
-            
-            const p2_img = document.getElementById(p2);
-            ctx.drawImage(p2_img, x2+0.2*lineLen, y2+0.2*lineLen, 0.6*lineLen, 0.6*lineLen);
-        },50)
+        x1_real = x1+0.2*lineLen;
+        y1_real = y1+0.2*lineLen;
 
+        x2_real = x2+0.2*lineLen;
+        y2_real = y2+0.2*lineLen;        
     }
-
-    // if(player === 1){
-    //     setTimeout(()=>{
-    //         const image = document.getElementById('deer');
-    //         ctx.drawImage(image, x+lineLen*0.03, y+lineLen*0.03, 0.6*lineLen, 0.6*lineLen);
-    //     },30)
-    // }else{
-    //     setTimeout(()=>{
-    //         const image = document.getElementById('dragon');
-    //         ctx.drawImage(image, x+lineLen*0.37, y+lineLen*0.36, 0.6*lineLen, 0.6*lineLen);
-    //     },30)
-    // }
+    
+    setTimeout(()=>{
+        const p1_img = document.getElementById(p1);
+        const p2_img = document.getElementById(p2);
+        
+        if(playersTurn === 1){
+            ctx.drawImage(p2_img, x2_real, y2_real, 0.6*lineLen, 0.6*lineLen);
+            ctx.drawImage(p1_img, x1_real, y1_real, 0.6*lineLen, 0.6*lineLen);
+        }
+        else if(playersTurn === 2){
+            ctx.drawImage(p1_img, x1_real, y1_real, 0.6*lineLen, 0.6*lineLen);
+            ctx.drawImage(p2_img, x2_real, y2_real, 0.6*lineLen, 0.6*lineLen);
+        }
+    },150)
 }
 
 
@@ -240,6 +199,65 @@ body.appendChild(p2_img);
 
 drawBoard();
 
+var diceImg = document.querySelector("#dice");
+
+var diceText = document.querySelector(".diceText");
+diceText.innerHTML = p1+" <br /> Your turn"
+
+
+var rollBtn = document.querySelector("#roll");
+rollBtn.addEventListener("click", roll);
+function roll(){
+    var diceRoll = Math.floor(Math.random() * 6) + 1;
+    // console.log(diceRoll)
+    diceImg.src = "../images/"+diceRoll+".png";
+    
+
+    if(playersTurn === 1){
+        p1_pos += diceRoll;
+        
+        console.log("p1_pos: "+p1_pos);
+        if (p1_pos>=31){
+            diceText.innerHTML = p1+" <br /> You won!"
+            p1_pos = 31;
+            setTimeout(() => {window.location.href="./finale.html?winner="+p1;}, 2000);
+        }
+        else{
+
+            if(diceRoll===6){
+                playersTurn = 1;
+            }
+            else{
+                diceText.innerHTML = p2+" <br /> Your turn"
+                playersTurn = 2;
+            }
+        }
+    }
+    else{
+        p2_pos += diceRoll;
+
+        console.log("p2_pos: "+p2_pos);
+
+        if(p2_pos>=31){
+            diceText.innerHTML = p2+" <br /> You won!"
+            p2_pos = 31;
+            setTimeout(() => {window.location.href="./finale.html?winner="+p2;}, 2000);
+        }
+        else{
+
+            if (diceRoll===6){
+                playersTurn = 2;
+            }
+            else{
+                playersTurn = 1;
+                diceText.innerHTML = p1+" <br /> Your turn"
+            }
+        }
+    }
+    drawBoard();
+
+    
+}
 
 
 
