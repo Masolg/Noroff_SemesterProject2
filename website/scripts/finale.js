@@ -1,6 +1,8 @@
 
-var urlParams = new URLSearchParams(window.location.search);
-var winner = urlParams.get("winner");
+// https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+// Using local storage to get the winner.
+var winner = localStorage.getItem("winner");
+// localStorage.clear();    // Uncomment when not testing
 
 var images = {
     "Jon Snow" : "wolf_dark",
@@ -21,5 +23,5 @@ token.childNodes[1].src = "../images/"+images[winner]+".png";
 token.childNodes[1].alt = images[winner];
 
 var deg = 200000;
-token.style.transform = "rotateY(" + deg + "deg)";
+token.style.transform = "rotateY(200000deg)";
 

@@ -139,8 +139,6 @@ function drawBoard(){
 function drawTraps(){
     for (var i = 0; i<traps_pos.length; i++){
         
-        // console.log(traps_pos[i]);
-        
         [x0, y0] = coordinates[ traps_pos[i] ];
         [x, y] = toCanvasCoordinates(x0, y0);
 
@@ -206,14 +204,6 @@ function drawTokens(){
 const urlParams = new URLSearchParams(window.location.search);
 const p1 = urlParams.get("p1");
 const p2 = urlParams.get("p2");
-// console.log(p1);
-// console.log(p2);
-
-var p1_local = localStorage.getItem("p1");
-var p2_local = localStorage.getItem("p2");
-// console.log(p1_local);
-// console.log(p2_local);
-localStorage.clear();
 
 
 var p1_pos = 0;
@@ -240,10 +230,8 @@ document.body.appendChild(p2_img);
 drawBoard();
 
 var diceImg = document.querySelector("#dice");
-
 var diceText = document.querySelector(".diceText");
-diceText.innerHTML = p1+"'s turn"
-
+diceText.innerHTML = p1+"'s <br /> turn"
 var trapText = document.querySelector(".trapText");
 
 
@@ -251,19 +239,17 @@ var rollBtn = document.querySelector("#roll");
 rollBtn.addEventListener("click", roll);
 function roll(){
     var diceRoll = Math.floor(Math.random() * 6) + 1;
-    // console.log(diceRoll)
     diceImg.src = "../images/"+diceRoll+".png";
-    
 
     if(playersTurn === 1){
         p1_pos += diceRoll;
-        
-        // console.log("p1_pos: "+p1_pos);
 
         if (p1_pos>=31){
             diceText.innerHTML = p1+" <br /> You won!"
             p1_pos = 31;
-            setTimeout(() => {window.location.href="./finale.html?winner="+p1;}, 2000);
+            myStorage = window.localStorage;
+            localStorage.setItem("winner", p1);
+            setTimeout(() => {window.location.href="./finale.html";}, 2000);
         }
         else if(traps_pos.includes(p1_pos)){
             trapText.innerText = traps_text[p1_pos];
@@ -281,7 +267,7 @@ function roll(){
                 setTimeout(() => {
                     rollBtn.disabled = false;
                     playersTurn = 2;
-                    diceText.innerHTML = p2+"'s turn"
+                    diceText.innerHTML = p2+"'s <br /> turn"
                     p1_pos -= 3;
                     trapText.innerText = "";
                     drawBoard();
@@ -294,7 +280,7 @@ function roll(){
                 playersTurn = 1;
             }
             else{
-                diceText.innerHTML = p2+"'s turn"
+                diceText.innerHTML = p2+"'s <br /> turn"
                 playersTurn = 2;
             }
         }
@@ -302,12 +288,12 @@ function roll(){
     else{
         p2_pos += diceRoll;
 
-        // console.log("p2_pos: "+p2_pos);
-
         if(p2_pos>=31){
             diceText.innerHTML = p2+" <br /> You won!"
             p2_pos = 31;
-            setTimeout(() => {window.location.href="./finale.html?winner="+p2;}, 2000);
+            myStorage = window.localStorage;
+            localStorage.setItem("winner", p2);
+            setTimeout(() => {window.location.href="./finale.html";}, 2000);
         }
         else if(traps_pos.includes(p2_pos)){
             trapText.innerText = traps_text[p2_pos];
@@ -327,19 +313,18 @@ function roll(){
                     p2_pos -= 3;
                     playersTurn = 1;
                     trapText.innerText = "";
-                    diceText.innerHTML = p1+"'s turn"
+                    diceText.innerHTML = p1+"'s <br /> turn"
                     drawBoard();
                 }, 4500);
             }
         }
         else{
-
             if (diceRoll===6){
                 playersTurn = 2;
             }
             else{
                 playersTurn = 1;
-                diceText.innerHTML = p1+"'s turn"
+                diceText.innerHTML = p1+"'s <br /> turn"
             }
         }
     }

@@ -52,9 +52,8 @@ function addCharacterToCard(character, i){
 
     var picture = document.createElement("img");
     picture.src = "../images/"+images[character.Name]+".png";
-    picture.alt = "Character Logo";
+    picture.alt = character.Name+" Token";
     front.appendChild(picture);
-    // characterDivs[i].innerHTML = "<img src="https://via.placeholder.com/300"></img>"
 
     var name = document.createElement("h2");
     name.innerHTML = character.Name;
@@ -108,8 +107,6 @@ function characterPress(elem){
         elem.style.border = "2px solid blue";
         players.push(elem);
         playerNames.push(elem.childNodes[0].childNodes[1].innerHTML);
-        console.log(players);
-        console.log(playerNames);
     }
     else if (players.length  === 1){
         if (players.includes(elem)){
@@ -131,8 +128,6 @@ function characterPress(elem){
                 }
             }
         }
-        console.log(players);
-        console.log(playerNames);
     }
     else if (players.length === 2){
         if (players.includes(elem)){
@@ -158,8 +153,6 @@ function characterPress(elem){
 
         }
     }
-
-    
 }
 
 
@@ -257,9 +250,9 @@ function play(){
         var p2 = playerNames[1];
         
         // https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
-        myStorage = window.localStorage;
-        localStorage.setItem("p1", p1);
-        localStorage.setItem("p2", p2);
+        // myStorage = window.localStorage;
+        // localStorage.setItem("p1", p1);
+        // localStorage.setItem("p2", p2);
         
         window.location.href="./game.html?p1="+p1+"&p2="+p2;
     }
