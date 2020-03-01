@@ -81,7 +81,7 @@ function createRect(x0, y0, text){
     [x, y] = toCanvasCoordinates(x0, y0);
     ctx.beginPath();
     ctx.rect(x, y, lineLen, lineLen);
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 1;
     ctx.fillStyle = "white";
     ctx.fill();
     ctx.stroke();
@@ -187,12 +187,14 @@ var body = document.body;
 var p1_img = document.createElement("img");
 p1_img.src = '../images/'+images[p1]+".png";
 p1_img.alt = "Player 1 image";
+p1_img.style.display = "none";
 p1_img.id = p1;
 body.appendChild(p1_img);
 
 var p2_img = document.createElement("img");
 p2_img.src = '../images/'+images[p2]+".png";
 p2_img.alt = "Player 2 image";
+p2_img.style.display = "none";
 p2_img.id = p2;
 body.appendChild(p2_img);
 
