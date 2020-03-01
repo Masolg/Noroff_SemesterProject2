@@ -18,22 +18,22 @@ var characterNames = ["Jon Snow",
                     "Tormund"]
 
 
-var characterDivs = document.getElementsByClassName("character");
 var characters = [];
-
-
+                    
 var images = {
-    "Jon Snow" : "wolf_dark.png",
-    "Daenerys Targaryen": "dragon.png",
-    "Arya Stark": "wolf_light.png",
-    "Brienne of Tarth": "deer.png",
-    "Jaime Lannister": "lion_light.png",
-    "Theon Greyjoy": "octo.png",
-    "Tyrion Lannister": "lion_orange.png",
-    "Sandor Clegane": "lion_brown.png",
-    "Drogo": "drogo.png",
-    "Tormund": "mammoth.png"
+    "Jon Snow" : "wolf_dark",
+    "Daenerys Targaryen": "dragon",
+    "Arya Stark": "wolf_light",
+    "Brienne of Tarth": "deer",
+    "Jaime Lannister": "lion_light",
+    "Theon Greyjoy": "octo",
+    "Tyrion Lannister": "lion_orange",
+    "Sandor Clegane": "lion_brown",
+    "Drogo": "drogo",
+    "Tormund": "mammoth"
 }
+
+var characterDivs = document.getElementsByClassName("character");
 
 
 // FETCH AND DISPLAY CARDS
@@ -51,7 +51,7 @@ function addCharacterToCard(character, i){
     front.style.display = "block";
 
     var picture = document.createElement("img");
-    picture.src = '../images/'+images[character.Name];
+    picture.src = '../images/'+images[character.Name]+".png";
     picture.alt = "Character Logo";
     front.appendChild(picture);
     // characterDivs[i].innerHTML = "<img src='https://via.placeholder.com/300'></img>"
@@ -155,7 +155,7 @@ function characterPress(elem){
             }
         }
         else{
-            
+
         }
     }
 
@@ -255,7 +255,15 @@ function play(){
     if ( playerNames.length === 2){
         var p1 = playerNames[0];
         var p2 = playerNames[1];
+        
+        // https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+        myStorage = window.localStorage;
+        localStorage.setItem('p1', p1);
+        localStorage.setItem('p2', p2);
+        
         window.location.href="./game.html?p1="+p1+"&p2="+p2;
     }
 
+
+    
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="description" content="Game">
+        <meta name="keywords" content="game, Game of Thrones">
+        <meta name="author" content="Mathilde Solheim Grøtta">
+        <link rel="shortcut icon" href="../images/favicon.ico">
+        <link rel="stylesheet" href="../styles/style.css">
+        <link rel="shortcut icon" href="">
+        <title>Game</title>
+    </head>
+
+    <body>
+        <header class="gameHeader">
+            <div class="infoText">
+                <h2>Welcome to the game!</h2>
+            </div>
+            <div class="logo">
+                <h1 style="display: none">Fire & Ice</h1>
+                <img src="../images/logo.png" alt="Logo">
+            </div>
+        </header>
+        <main class="gameMain">
+
+            <canvas id="gameCanvas" width="1433" height="783">
+                Your browser does not support the HTML5 canvas tag.
+            </canvas>
+
+            <div class="diceArea">
+                <div class="dice">
+                    <img src="../images/4.png" alt="dice">
+                </div>
+                <div class="diceText">
+                    Drogo 
+                    <br/>
+                    Your turn
+                </div>
+                <div class="diceBtn">
+                    <button>
+                        Roll dice!
+                    </button>
+                </div>
+
+            </div>
+            
+
+            
+            
+        </main>
+
+        <img style="display:none" id="tree" src="../images/tree.png" width="1000" height="750">
+        <img style="display:none" id="orange_leaves" src="../images/orange_leaves.png" width="200" height="228">
+        <img style="display:none" id="red_leaves" src="../images/red_leaves.png" width="396" height="208">
+        <img style="display:none" id="yellow_leaves" src="../images/yellow_leaves.png" width="224" height="89">
+
+        <script type="text/javascript" src="../assets/characters.js"></script>
+        <script type="text/javascript" src="../assets/houses.js"></script>
+        <script src="../scripts/game.js"> </script>
+    </body>
+</html>
+
+

@@ -1,4 +1,4 @@
-header{
+header.indexHeader{
     text-align: center;
 
     height: 15vh;
@@ -7,7 +7,7 @@ header{
     }
 }
 
-main{
+main.indexMain{
     height: 85vh;
 
     h2.characterHeader{
@@ -90,7 +90,7 @@ main{
 
 @media (max-width: 991px) {
 
-    main{
+    main.indexMain{
         height: auto;
     
         .container-fluid{
@@ -141,7 +141,7 @@ main{
 
 @media (max-width: 500px) {
    
-    main{
+    main.indexMain{
         .container-fluid{
             .row{
     
