@@ -205,7 +205,7 @@ main.gameMain .diceArea .diceBtn button:hover {
 }
 main.gameMain .diceArea .diceBtn button:disabled {
   cursor: default;
-  background-color: #5591e4;
+  background-color: #6385b4;
 }
 main.gameMain .diceArea .trapText {
   padding: 20px;

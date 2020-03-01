@@ -1,25 +1,7 @@
-// fetch("../assets/characters.json", {mode:"no-cors"})
-//     .then((response) => response.json() )
-//     .then((characterJson) => console.log(characterJson))
-//     .catch((error) => console.error(error));
-
 
 // VARIABLES
 var characterIDs = [583, 1303, 148, 216, 529, 1022, 1052, 955, 1346, 2024];
-var characterNames = ["Jon Snow",
-                    "Daenerys Targaryen",
-                    "Arya Stark",
-                    "Brienne of Tarth",
-                    "Jaime Lannister",
-                    "Theon Greyjoy",
-                    "Tyrion Lannister",
-                    "Sandor Clegane",
-                    "Drogo",
-                    "Tormund"]
 
-
-var characters = [];
-                    
 var images = {
     "Jon Snow" : "wolf_dark",
     "Daenerys Targaryen": "dragon",
@@ -36,14 +18,16 @@ var images = {
 var characterDivs = document.getElementsByClassName("character");
 
 
-// FETCH AND DISPLAY CARDS
+// FETCH AND DISPLAY ALL CARDS
 for (var i = 0; i<10; i++){
     var char_i = allCharacters.findIndex(element => element.Id==characterIDs[i]);
     var character = allCharacters[char_i];
-    characters.push(character);
     addCharacterToCard(character, i);
 }
 
+
+// This function takes in the character info and adds it to the page
+// by using the .createElement and .appendChild methods
 function addCharacterToCard(character, i){
 
     var front = document.createElement("div");
@@ -92,28 +76,32 @@ function addCharacterToCard(character, i){
     }
     back.appendChild(allegiances);
 
-
     characterDivs[i].appendChild(front);
     characterDivs[i].appendChild(back);
-
 }
 
-// CARD CLICK
+
+// CARD CLICK. These lines of code fixes the character selection logic.
+// You can un-choose your selected characters if you wish.
 var players = [];
 var playerNames = [];
 function characterPress(elem){
 
+    // If no players are chosen yet, add card to list.
     if (players.length === 0){
         elem.style.border = "2px solid blue";
         players.push(elem);
         playerNames.push(elem.childNodes[0].childNodes[1].innerHTML);
     }
+    // If one player is already chosen, you can either select another, or unselect your character.
     else if (players.length  === 1){
+        // Deselecting already chosen character
         if (players.includes(elem)){
             elem.style.border = "none";
             players = [];
             playerNames = [];
         }
+        // Choosing second character. You can now press the Play button.
         else{
             elem.style.border = "2px solid blue";
             players.push(elem);
@@ -129,6 +117,7 @@ function characterPress(elem){
             }
         }
     }
+    // If both characters are already chosen, you can deselect them here.
     else if (players.length === 2){
         if (players.includes(elem)){
             elem.style.border = "none";
@@ -149,14 +138,13 @@ function characterPress(elem){
                 playerNames.splice(1, 2);
             }
         }
-        else{
 
-        }
     }
 }
 
 
-// HOVER
+// HOVER. Manually adding mouseenter and mouseleave for all the cards.
+// Tried using for loops to add them, but it didn't work.
 var front = document.getElementsByClassName("front");
 var back = document.getElementsByClassName("back");
 characterDivs[0].addEventListener("mouseenter", () => {
@@ -241,22 +229,16 @@ characterDivs[9].addEventListener("mouseleave", () => {
 });
 
 
-// PLAY BUTTON
+// PLAY BUTTON. Simple function redirecting to game page.
 var button = document.getElementById("btn");
 button.addEventListener("click", play);
 function play(){
     if ( playerNames.length === 2){
         var p1 = playerNames[0];
         var p2 = playerNames[1];
-        
-        // https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
-        // myStorage = window.localStorage;
-        // localStorage.setItem("p1", p1);
-        // localStorage.setItem("p2", p2);
-        
+    
+        // Using query strings to send data to game page
         window.location.href="./game.html?p1="+p1+"&p2="+p2;
     }
-
-
     
 }

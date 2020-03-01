@@ -1,19 +1,5 @@
 
 // VARIABLES
-var characterIDs = [583, 1303, 148, 216, 529, 1022, 1052, 955, 1346, 2024];
-var characterNames = ["Jon Snow",
-                    "Daenerys Targaryen",
-                    "Arya Stark",
-                    "Brienne of Tarth",
-                    "Jaime Lannister",
-                    "Theon Greyjoy",
-                    "Tyrion Lannister",
-                    "Sandor Clegane",
-                    "Drogo",
-                    "Tormund"]
-
-var characterDivs = document.getElementsByClassName("character");
-var characters = [];
 
 var images = {
     "Jon Snow" : "wolf_dark",
@@ -27,12 +13,6 @@ var images = {
     "Drogo": "drogo",
     "Tormund": "mammoth"
 }
-
-
-var gameCanvas = document.getElementById("gameCanvas");
-var ctx = gameCanvas.getContext("2d");
-
-
 
 coordinates = [
     [1,0],
@@ -70,7 +50,6 @@ coordinates = [
 ];
 
 traps_pos = [4, 9, 14, 20, 24, 29];
-
 traps_text = {
     4:"Turn around before Joffrey puts your head on a spike.",
     9:"Cersei Lannister is standing in your way. Turn back, you don't want to meet her.",
@@ -81,7 +60,11 @@ traps_text = {
 
 }
 
-var lineLen = 130;
+const lineLen = 130;
+
+//// FUNCTIONS FOR CANVAS DRAWING ////
+
+// This function takes integer coordinates and maps them to canvas coordinates
 function toCanvasCoordinates(x0, y0){
     var startX = 2;
     var startY = 2;
@@ -89,7 +72,9 @@ function toCanvasCoordinates(x0, y0){
     var y = startY + lineLen*y0;
     return [x, y];
 }
-function createRect(x0, y0, text){
+
+// This function creates one tile at a position with specified text
+function drawTile(x0, y0, text){
     [x, y] = toCanvasCoordinates(x0, y0);
     ctx.beginPath();
     ctx.rect(x, y, lineLen, lineLen);
@@ -101,18 +86,17 @@ function createRect(x0, y0, text){
     ctx.fillStyle = "black";
     ctx.font = "20px Arial";
     ctx.textAlign = "center"; 
-    ctx.fillText(text, x+0.5*lineLen, y+0.55*lineLen); 
+    ctx.fillText(text, x + 0.5*lineLen, y + 0.55*lineLen); 
 }
 
+// This function draws/redraws the entire board. Used every time something changes.
 function drawBoard(){
-
-    
-    createRect(1, 0, "Start");
+    drawTile(1, 0, "Start");
     for (var i = 1; i<coordinates.length; i++){
         [x_coord, y_coord] = coordinates[i];
-        createRect(x_coord, y_coord, i)
+        drawTile(x_coord, y_coord, i)
     }
-    createRect(9, 5, "Finish");
+    drawTile(9, 5, "Finish");
     
     setTimeout(()=>{    // Because of load times
         const tree = document.getElementById("tree");
@@ -131,11 +115,10 @@ function drawBoard(){
     },150)
 
     drawTokens()
-
     drawTraps();
-
 }
 
+// This function draws the traps from the traps arrays on the board.
 function drawTraps(){
     for (var i = 0; i<traps_pos.length; i++){
         
@@ -153,10 +136,12 @@ function drawTraps(){
         ctx.fillStyle = "black";
         ctx.font = "20px Arial";
         ctx.textAlign = "center"; 
-        ctx.fillText(traps_pos[i], x+0.5*lineLen, y+0.55*lineLen); 
+        ctx.fillText(traps_pos[i], x + 0.5*lineLen, y + 0.55*lineLen); 
     }
 }
 
+// This function draws the players' tokens. 
+// It draws different whether there are one or two tokens in one tile.
 function drawTokens(){
     [x1_, y1_] = coordinates[p1_pos];
     [x2_, y2_] = coordinates[p2_pos];
@@ -196,8 +181,10 @@ function drawTokens(){
 }
 
 
+// MAIN PART OF THE CODE
 
-
+var gameCanvas = document.getElementById("gameCanvas");
+var ctx = gameCanvas.getContext("2d");
 
 
 // Found at https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
@@ -205,137 +192,133 @@ const urlParams = new URLSearchParams(window.location.search);
 const p1 = urlParams.get("p1");
 const p2 = urlParams.get("p2");
 
-
+// Both players start at location 0
 var p1_pos = 0;
 var p2_pos = 0;
 
+// Player 1 begins
 var playersTurn = 1;
 
-
-var p1_img = document.createElement("img");
+// To use images in canvas, we need to add the images to the HTML 
+//  first, and use display none to hide them.
+const p1_img = document.createElement("img");
 p1_img.src = "../images/"+images[p1]+".png";
 p1_img.alt = "Player 1 image";
 p1_img.style.display = "none";
 p1_img.id = p1;
 document.body.appendChild(p1_img);
 
-var p2_img = document.createElement("img");
+const p2_img = document.createElement("img");
 p2_img.src = "../images/"+images[p2]+".png";
 p2_img.alt = "Player 2 image";
 p2_img.style.display = "none";
 p2_img.id = p2;
 document.body.appendChild(p2_img);
 
-
+// Initializes the board.
 drawBoard();
+
+myStorage = window.localStorage;
 
 var diceImg = document.querySelector("#dice");
 var diceText = document.querySelector(".diceText");
 diceText.innerHTML = p1+"'s <br /> turn"
 var trapText = document.querySelector(".trapText");
 
+var diceRoll;
 
+// The roll function executes every time the "Roll dice" button is pressed.
 var rollBtn = document.querySelector("#roll");
 rollBtn.addEventListener("click", roll);
 function roll(){
-    var diceRoll = Math.floor(Math.random() * 6) + 1;
+    diceRoll = Math.floor(Math.random() * 6) + 1;
     diceImg.src = "../images/"+diceRoll+".png";
 
+    // Code for player 1
     if(playersTurn === 1){
         p1_pos += diceRoll;
 
-        if (p1_pos>=31){
-            diceText.innerHTML = p1+" <br /> You won!"
-            p1_pos = 31;
-            myStorage = window.localStorage;
-            localStorage.setItem("winner", p1);
-            setTimeout(() => {window.location.href="./finale.html";}, 2000);
+        if (p1_pos>=31){                    // If you land on "Finish"
+            p1Finish();
         }
-        else if(traps_pos.includes(p1_pos)){
-            trapText.innerText = traps_text[p1_pos];
-            rollBtn.disabled = true;
-            if (diceRoll===6){
-                setTimeout(() => {
-                    rollBtn.disabled = false;
-                    playersTurn = 1;
-                    p1_pos -= 3;
-                    trapText.innerText = "";
-                    drawBoard();
-                }, 4500);
-            }
-            else{
-                setTimeout(() => {
-                    rollBtn.disabled = false;
-                    playersTurn = 2;
-                    diceText.innerHTML = p2+"'s <br /> turn"
-                    p1_pos -= 3;
-                    trapText.innerText = "";
-                    drawBoard();
-                }, 4500);
-            }
+        else if(traps_pos.includes(p1_pos)){ // If you land on the traps
+            p1Trap();
         }
-        else{
-            
-            if(diceRoll===6){
-                playersTurn = 1;
-            }
-            else{
-                diceText.innerHTML = p2+"'s <br /> turn"
-                playersTurn = 2;
-            }
+        else{                               // If you land elsewhere
+            p1Else();
         }
     }
+    // Code for player 2.
     else{
         p2_pos += diceRoll;
 
-        if(p2_pos>=31){
-            diceText.innerHTML = p2+" <br /> You won!"
-            p2_pos = 31;
-            myStorage = window.localStorage;
-            localStorage.setItem("winner", p2);
-            setTimeout(() => {window.location.href="./finale.html";}, 2000);
+        if(p2_pos>=31){                     // If you land on "Finish"
+            p2Finish();
         }
-        else if(traps_pos.includes(p2_pos)){
-            trapText.innerText = traps_text[p2_pos];
-            rollBtn.disabled = true;
-            if (diceRoll===6){
-                setTimeout(() => {
-                    rollBtn.disabled = false;
-                    p2_pos -= 3;
-                    playersTurn = 2;
-                    trapText.innerText = "";
-                    drawBoard();
-                }, 4500);
-            }
-            else{
-                setTimeout(() => {
-                    rollBtn.disabled = false;
-                    p2_pos -= 3;
-                    playersTurn = 1;
-                    trapText.innerText = "";
-                    diceText.innerHTML = p1+"'s <br /> turn"
-                    drawBoard();
-                }, 4500);
-            }
+        else if(traps_pos.includes(p2_pos)){ // If you land on the traps
+            p2Trap();
         }
-        else{
-            if (diceRoll===6){
-                playersTurn = 2;
-            }
-            else{
-                playersTurn = 1;
-                diceText.innerHTML = p1+"'s <br /> turn"
-            }
+        else{                               // If you land elsewhere
+            p2Else();
         }
     }
-    drawBoard();
 
-    
+    drawBoard();
 }
 
 
 
+//// HELPER FUNCTIONS FOR ROLL FUNCTION ////
 
 
+function p1Finish(){
+    diceText.innerHTML = p1 + " <br /> You won!"
+    p1_pos = 31;
+    localStorage.setItem("winner", p1);
+    setTimeout(() => {window.location.href="./finale.html";}, 2000);
+}
+function p2Finish(){
+    diceText.innerHTML = p2 + " <br /> You won!"
+    p2_pos = 31;
+    localStorage.setItem("winner", p2);
+    setTimeout(() => {window.location.href="./finale.html";}, 2000);
+}
+
+function p1Trap(){
+    trapText.innerText = traps_text[p1_pos];
+    rollBtn.disabled = true;
+    setTimeout(() => {
+        playersTurn = diceRoll===6 ? 1 : 2;
+        if (diceRoll !== 6)  diceText.innerHTML = p2+"'s <br /> turn"
+
+        rollBtn.disabled = false;
+        trapText.innerText = "";
+        p1_pos -= 3;
+        drawBoard();
+    }, 4500);
+}
+
+function p2Trap(){
+    trapText.innerText = traps_text[p2_pos];
+    rollBtn.disabled = true;
+    setTimeout(() => {
+        playersTurn = diceRoll===6 ? 2 : 1;
+        if (diceRoll !== 6)  diceText.innerHTML = p1 + "'s <br /> turn"
+        
+        rollBtn.disabled = false;
+        p2_pos -= 3;
+        trapText.innerText = "";
+        drawBoard();
+    }, 4500);
+}
 
 
+function p1Else(){
+    playersTurn = diceRoll===6 ? 1 : 2;
+    if (diceRoll !== 6)  diceText.innerHTML = p2+"'s <br /> turn"
+}
+
+function p2Else(){
+    playersTurn = diceRoll===6 ? 2 : 1;
+    if (diceRoll !== 6)  diceText.innerHTML = p1+"'s <br /> turn"
+}
